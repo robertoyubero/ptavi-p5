@@ -12,19 +12,20 @@ Análisis de una sesión SIP
 Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wireshark2. Se pide rellenar las cuestiones que se plantean en este guión en el fichero p5.txt que encontrarás también en el repositorio.
 
 2. Observa que las tramas capturadas corresponden a una sesión SIP con Ekiga, un cliente de VoIP para GNOME. Responde a las siguientes cuestiones:
- ** ¿Cuántos paquetes componen la captura?
- ** ¿Cuánto tiempo dura la captura?
- ** ¿Qué IP tiene la máquina donde se ha efectuado la captura? ¿Se trata de una IP pública o de una IP privada? ¿Por qué lo sabes?
+ ** ¿Cuántos paquetes componen la captura? 954
+ ** ¿Cuánto tiempo dura la captura? 56.149s
+ ** ¿Qué IP tiene la máquina donde se ha efectuado la captura? 192.168.1.34 
+ ¿Se trata de una IP pública o de una IP privada? ¿Por qué lo sabes? Es una IP privada porque todas las 192.168... lo son
 
 
 3. Antes de analizar las tramas, mira las estadísticas generales que aparecen en el menú de Statistics. En el apartado de jerarquía de protocolos (Protocol Hierarchy) se puede ver el porcentaje del tráfico correspondiente al protocolo TCP y UDP.
- ** ¿Cuál de los dos es mayor? ¿Es esto consistente con una aplicación que transmite en tiempo real?
- ** ¿Qué otros protocolos podemos ver en la jerarquía de protocolos?
+ ** ¿Cuál de los dos es mayor? UDP ¿Es esto consistente con una aplicación que transmite en tiempo real? @@@@@
+ ** ¿Qué otros protocolos podemos ver en la jerarquía de protocolos? HTTP, SIP, RTCP, IPv4
 
 
 4. Observa por encima el flujo de tramas en el menú de Statistics en IO Graphs. La captura que estamos viendo incluye desde la inicialización (registro) de la aplicación hasta su finalización, con una llamada entremedias.
- ** Filtra por sip para conocer cuándo se envían paquetes SIP. ¿En qué segundos tienen lugar esos envíos?
- ** Y los paquetes con RTP, ¿cuándo se envían?
+ ** Filtra por sip para conocer cuándo se envían paquetes SIP. ¿En qué segundos tienen lugar esos envíos? El primer envío es en el 7.34s, el resto al rededor de 14s, 39s y 55s.
+ ** Y los paquetes con RTP, ¿cuándo se envían? Desde el 17.22s hasta el 38.11
 
 
 
