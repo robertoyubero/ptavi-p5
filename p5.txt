@@ -61,25 +61,25 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 9. Fijémonos en las tramas siguientes a la número 46:
- ** ¿Se registra con éxito en el primer intento?
- ** ¿Cómo sabemos si el registro se ha realizado correctamente o no?
- ** ¿Podrías identificar las diferencias entre el primer intento y el segundo de registro? (fíjate en el tamaño de los paquetes y mira a qué se debe el cambio)
- ** ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades.
+ ** ¿Se registra con éxito en el primer intento? No.
+ ** ¿Cómo sabemos si el registro se ha realizado correctamente o no? Recibce 401 Unauthorized
+ ** ¿Podrías identificar las diferencias entre el primer intento y el segundo de registro? (fíjate en el tamaño de los paquetes y mira a qué se debe el cambio) En el segundo paquete envia un response con nonce + informacion privada encriptada 
+ ** ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades. 3600 segundos
 
 
 10. Una vez registrados, podemos efectuar una llamada. Vamos a probar con el servicio de eco de Ekiga que nos permite comprobar si nos hemos conectado correctamente. El servicio de eco tiene la dirección sip:500@ekiga.net. Veamos el INVITE de cerca.
- ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP?
- ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
- ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
- ** ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
+ ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP? Si, lo podemos ver en el campo From tanto el nombre como la direccion SIP del cliente que envia el INVITE
+ ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está? Contiene una trama SDP que describe la sesión multimedia. SIP sólo inicia la sesión.
+ ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes? No tiene éxito en el primer intento, recibe del servidor un 407( autenticación de proxy necesaria)
+ ** ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto? En el segundo INVITE se soluciona el error de autenticacion de proxy, se añade información del proxy codificada con el nonce enviando un response. 
 
 
 11. Una vez conectado, estudia el intercambio de tramas.
- ** ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos?
- ** ¿Cuál es el tamaño de paquete de los mismos?
- ** ¿Se utilizan bits de padding?
- ** ¿Cuál es la periodicidad de los paquetes que se envían?
- ** ¿Cuántos bits/segundo estamos enviando?
+ ** ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos? El cliente envia tramas con el protocolo RTP. Dicho protocolo sirve para transmitir archivos multimedia.
+ ** ¿Cuál es el tamaño de paquete de los mismos? Los paquetes enviados ocupar 214 bytes cada uno.
+ ** ¿Se utilizan bits de padding? No.
+ ** ¿Cuál es la periodicidad de los paquetes que se envían? No hay pediodicidad, se envian paquetes de 5, 6 o 7 seguidos cada vez.
+ ** ¿Cuántos bits/segundo estamos enviando? Enviamos 160 bytes de payload cada 160 ms => 8kbps
 
 
 
