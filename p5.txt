@@ -41,8 +41,8 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 6. A continuación, hay más de una docena de tramas TCP/HTTP.
  ** ¿Podrías decir la URL que se está pidiendo? El cliente está pidiendo su IP pública para iniciar la sesion en ekiga y recibir trafico
  ** ¿Qué user agent (UA) la está pidiendo? Ekiga
- ** ¿Qué devuelve el servidor? El servidor le devuelve la IP privada: 83.36.48.212
-¿¿¿¿¿    ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo que está respondiendo el servidor?
+ ** ¿Qué devuelve el servidor? El servidor le devuelve la IP pública: 83.36.48.212
+ ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo que está respondiendo el servidor? El servidor nos dice nuestra IP pública
 
 
 7. Hasta la trama 45 se puede observar una secuencia de tramas del protocolo STUN.
@@ -78,7 +78,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos? El cliente envia tramas con el protocolo RTP. Dicho protocolo sirve para transmitir archivos multimedia.
  ** ¿Cuál es el tamaño de paquete de los mismos? Los paquetes enviados ocupar 214 bytes cada uno.
  ** ¿Se utilizan bits de padding? No.
- ** ¿Cuál es la periodicidad de los paquetes que se envían? No hay pediodicidad, se envian paquetes de 5, 6 o 7 seguidos cada vez.
+ ** ¿Cuál es la periodicidad de los paquetes que se envían? Debería haber periodicidad pero no la hay, se envian paquetes de 5, 6 o 7 seguidos cada vez.
  ** ¿Cuántos bits/segundo estamos enviando? Enviamos 160 bytes de payload cada 160 ms => 8kbps
 
 
@@ -86,24 +86,24 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una opción RTP. Empecemos mirando los flujos RTP.
- ** ¿Cuántos flujos hay? ¿por qué? Hay dos flujos, cada uno trata un tipo de datos (tienen distintos payload type). Uno de ida y otro de vuelta
+ ** ¿Cuántos flujos hay? ¿por qué? Hay dos flujos, cada uno trata un tipo de datos (tienen distintos payload type). Un flujo es de video (H261) y el otro es de audio.
  ** ¿Cuántos paquetes se pierden? No se pierde ningún paquete
- ** ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el valor de delta? 1290.48 
+ ** ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el valor de delta? 1290.48ms, es el tiempo máximo transcurrido entre la recepción de dos paquetes consecutivos del mismo flujo 
  ** ¿Cuáles son los valores de jitter (medio y máximo)? ¿Qué quiere decir eso? ¿Estamos ante una conversación de calidad? Medio: 153.24ms, Maximo:183.10ms. El jitter es el retardo entre paquetes. Si no tenemos un jitter buffer no estariamos en una conversacion de calidad.
 
 
 13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony -> RTP -> Stream Analysis.
  ** ¿Cuánto valen el delta y el jitter para el primer paquete que ha llegado? 0
- ** ¿Podemos saber si éste es el primer paquete que nos han enviado? Si poruqe su numero de secuencia es el menor de todas las secuencias recibidas.
+ ** ¿Podemos saber si éste es el primer paquete que nos han enviado? Si porque su numero de secuencia es el menor de todas las secuencias recibidas.
  ** Los valores de jitter son menores de 10ms hasta un paquete dado. ¿Cuál? Paquete 247 de rtp
- ** ¿A qué se debe el cambio tan brusco del jitter?  >>>>>>
- ** ¿Es comparable este cambio con el tiempo desde la recepción del paquete anterior? ¿Por qué? Sí, el retardo es unas 8 veces mayor.
- ** ¿Cuál es la dependencia entre el tiempo transcurrido desde el paquete anterior y el valor de jitter? El delta
+ ** ¿A qué se debe el cambio tan brusco del jitter? El jitter dependel del delta, si el delta cambia bruscamente el jitter también.
+ ** ¿Es comparable este cambio con el tiempo desde la recepción del paquete anterior? ¿Por qué? Sí, el jitter es unas 7 veces mayor.
+ ** ¿Cuál es la dependencia entre el tiempo transcurrido desde el paquete anterior y el valor de jitter? La dependencia es aproximadamente 
 
 
 14. En Telephony selecciona el menú VoIP calls. Verás que se lista la llamada de voz IP capturada en una ventana emergente. Selecciona esa llamada y pulsa el botón Graph.
  ** ¿Cuánto dura la conversación? Unos 25s.
- ** ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs? 0x43306582 y 0xBF4AFD37,hay dos SSRCs poruqe entre medias habrá dos nodos mezcladores. Debería haber CSRCs aunque no los veo
+ ** ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs? 0x43306582 y 0xBF4AFD37,hay dos SSRCs porque entre medias habrá dos nodos mezcladores. Debería haber CSRCs aunque no los veo
 
 
 15. Identifica la trama donde se finaliza la conversación.
