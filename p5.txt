@@ -129,16 +129,16 @@ Captura de una sesión SIP
 Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.net. Tendrás que dar de alta una cuenta en www.ekiga.net con el navegador. Recuerda también que has de comenzar a capturar tramas antes de arrancar Ekiga para ver todo el proceso en el que participa SIP. Para realizar los siguientes ejercicios, deberás crearte una cuenta en ekiga.net y darte de alta la lanzar la aplicación.
 
 17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
- ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
- ** ¿Son diferentes el registro y la descripción de la sesión?
+ ** ¿Es necesario el uso de DNS y STUN? ¿Por qué? DNS sí, con este protocolo obtenemos la IP del servidor ekiga.net. El protocolo STUN en este caso se utiliza para ver si mi IP es pública por lo que no es necesario el protocolo HTTP en este caso.    
+ ** ¿Son diferentes el registro y la descripción de la sesión? La descripción de la sesión se realiza mediante SDP el cual trabaja con SIP, ambos se realizan en el mismo paquete
 
 
 18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
- ** ¿Cuántos flujos tenemos?
- ** ¿Cuál es su periodicidad?
- ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
- ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
- ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net?
+ ** ¿Cuántos flujos tenemos? Tenemos dos flujos de audio, uno de ida y otro de vuelta.
+ ** ¿Cuál es su periodicidad? Unos 20ms
+ ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter? Max delta = 30.39ms, mean jitter = 3.60ms, max jitter = 5.96ms
+ ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria. Sí, con telephony VoIPcalls>decode>play
+ ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net? Un servicio de radio/musica
 
 
 
